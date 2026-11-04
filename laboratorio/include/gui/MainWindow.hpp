@@ -34,8 +34,10 @@ struct RunState;
 namespace Gui {
 
 class MainWindow : public QMainWindow {
+    Q_OBJECT
 public:
     explicit MainWindow(QWidget* parent = nullptr);
+
 
 protected:
     // Al cerrar la ventana: detener la prueba de forma controlada

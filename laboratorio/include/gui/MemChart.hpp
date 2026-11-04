@@ -15,6 +15,7 @@
 #include "../../include/common/Types.hpp"
 
 class MemChart : public QWidget {
+    Q_OBJECT               // ← AÑADIR ESTA LÍNEA
 public:
     explicit MemChart(QWidget* parent = nullptr);
 

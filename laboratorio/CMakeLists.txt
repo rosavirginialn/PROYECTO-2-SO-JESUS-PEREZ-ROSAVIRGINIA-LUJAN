@@ -1,15 +1,3 @@
-# ============================================================
-# Proyecto 2 - Laboratorio de concurrencia y memoria
-# CMakeLists.txt - Compilación principal (GUI Qt6)
-#
-#   sudo apt install qt6-base-dev      (una sola vez)
-#   mkdir -p build && cd build && cmake .. && make
-#   ./laboratorio                      (abre la GUI)
-#
-# Qt6 es obligatorio: es la interfaz del proyecto (el enunciado
-# admite TUI o GUI y elegimos GUI). Si cmake falla con "Qt6 no
-# encontrado", instale qt6-base-dev y vuelva a ejecutar cmake.
-# ============================================================
 cmake_minimum_required(VERSION 3.10)
 project(laboratorio CXX)
 
@@ -20,9 +8,9 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 find_package(Threads REQUIRED)
-
-# ---------- Qt6 (obligatorio: la GUI vive en src/gui/) ----------
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
+
+set(CMAKE_AUTOMOC ON)        # ← AÑADIR (antes de add_executable)
 
 set(LAB_SOURCES
     src/main.cpp
@@ -33,13 +21,19 @@ set(LAB_SOURCES
     src/core/History.cpp
     src/gui/MainWindow.cpp
     src/gui/MemChart.cpp
+    include/gui/MainWindow.hpp      # ← AÑADIR
+    include/gui/MemChart.hpp
 )
 
 add_executable(laboratorio ${LAB_SOURCES})
-
 target_link_libraries(laboratorio PRIVATE Threads::Threads Qt6::Widgets)
-
 target_compile_options(laboratorio PRIVATE -Wall -Wextra)
 
-# No usamos Q_OBJECT en nuestras clases (solo conexiones con lambdas),
-# así que no hace falta ejecutar moc ni usar AUTOMOC.
+# IMPORTANTE: decirle a AUTOMOC qué cabeceras procesar
+target_include_directories(laboratorio PRIVATE
+    ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/include/common
+    ${CMAKE_SOURCE_DIR}/include/core
+    ${CMAKE_SOURCE_DIR}/include/gui
+    ${CMAKE_SOURCE_DIR}/include/platform
+)

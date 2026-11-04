@@ -1,0 +1,64 @@
+# ============================================================
+# .gitignore - Proyecto 2 Sistemas Operativos
+# Laboratorio de concurrencia y memoria
+# ============================================================
+
+# ---------- Build de CMake ----------
+build/
+out/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+CMakeUserPresets.json
+
+# ---------- Objetos y binarios ----------
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.exe
+laboratorio
+laboratorio_dbg
+*.out
+
+# ---------- Archivos generados por moc/uic/rcc ----------
+moc_*.cpp
+moc_*.h
+ui_*.h
+qrc_*.cpp
+*_autogen/
+*.moc
+
+# ---------- Resultados de pruebas (se generan al correr) ----------
+resultados_lab.csv
+resultados_lab_*.csv
+
+# ---------- Core dumps y crash logs ----------
+core
+core.*
+*.dump
+vgcore.*
+callgrind.out.*
+cachegrind.out.*
+
+# ---------- Editores ----------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.bak
+
+# ---------- Qt Creator ----------
+*.user
+*.user.*
+CMakeLists.txt.user
+
+# ---------- Otros ----------
+*.log
+*.tmp
