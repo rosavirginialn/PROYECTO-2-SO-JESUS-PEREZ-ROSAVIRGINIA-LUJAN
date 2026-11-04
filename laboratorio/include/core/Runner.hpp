@@ -1,7 +1,11 @@
-// Lanza la carga en un proceso hijo y la supervisa
+// ============================================================
+// Proyecto 2 - Laboratorio de concurrencia y memoria
+// Runner.hpp - Lanza la carga en un proceso hijo (fork) y la supervisa
+//
 //  * En el HIJO: aplica los límites (setrlimit) y ejecuta la carga.
-//  * En el PADRE (aquí vive la TUI): muestrea /proc/<pid> cada
+//  * En el PADRE (aquí vive la interfaz): muestrea /proc/<pid> cada
 //    intervalo, controla pausa/detención y arma el RunResult final.
+// ============================================================
 #pragma once
 #include <memory>
 #include <mutex>
@@ -12,7 +16,7 @@
 #include "../core/ControlBlock.hpp"
 #include "../core/Limits.hpp"
 
-// Estado compartido de la prueba en curso (la TUI lo consulta)
+// Estado compartido de la prueba en curso (la interfaz lo consulta)
 struct RunState {
     TestConfig  cfg;
     pid_t       pid = -1;

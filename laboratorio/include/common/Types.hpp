@@ -1,28 +1,36 @@
-// Tipos y configuraciones compartidas por toda la app
+// ============================================================
+// Proyecto 2 - Laboratorio de concurrencia y memoria
+// Types.hpp - Tipos y configuraciones compartidas por toda la app
+// Integrantes: Jesús Pérez - Rosa Virginia Luján
+// ============================================================
 #pragma once
 #include <string>
 #include <vector>
 
+// ---------- Tipo de prueba ----------
 enum class TestType {
     MemoryCpuLoad,   // Carga general: hilos + reserva de memoria + ráfagas de CPU
     SharedCounter    // Acceso compartido: contador incrementado por N hilos
 };
 
+// ---------- Tipo de hilos ----------
 enum class ThreadKind {
     NativeOs,        // Hilos nativos del SO: std::thread (pthread_create)
     RuntimeManaged   // Tareas administradas por el runtime C++: std::async/std::future
 };
 
+// ---------- Sincronización del contador compartido ----------
 enum class SyncMode {
     None,            // Sin sincronización (condición de carrera observable)
     Atomic,          // std::atomic<int64_t>::fetch_add
     Mutex            // std::mutex + lock
 };
 
+// ---------- Resultado final de una corrida ----------
 enum class RunOutcome {
     Unknown,
     Completed,        // Llegó al final de la duración o terminó el contador
-    StoppedByUser,    // El usuario la detuvo desde la TUI
+    StoppedByUser,    // El usuario la detuvo desde la interfaz
     CpuLimitSigXcpu,  // El kernel envió SIGXCPU por agotar RLIMIT_CPU
     Killed,           // Terminada por SIGKILL/SIGTERM de la app (escalamiento)
     ReserveError,     // mmap/malloc falló (típicamente por RLIMIT_AS)
@@ -61,7 +69,9 @@ inline const char* syncmode_str(SyncMode s) {
     return "?";
 }
 
-// Configuracion de una prueba
+// ============================================================
+// Configuración de una prueba (la que edita el usuario en la interfaz)
+// ============================================================
 struct TestConfig {
     TestType   type           = TestType::MemoryCpuLoad;
     int        threads        = 4;        // hilos de trabajo (1..64)
@@ -78,7 +88,9 @@ struct TestConfig {
     int        sampleMs       = 500;      // intervalo de muestreo de /proc
 };
 
-// Muestra puntual tomada de /proc/<pid>
+// ============================================================
+// Muestra puntual tomada de /proc/<pid> (una por intervalo)
+// ============================================================
 struct Sample {
     double t       = 0;      // segundos desde el inicio de la prueba
     long   vsizeKB = 0;      // memoria virtual (VmSize)
@@ -92,7 +104,9 @@ struct Sample {
     long   nvolCtxt= 0;      // cambios de contexto no voluntarios
 };
 
-// Resultado de corrida (lo que va al historial)
+// ============================================================
+// Resultado consolidado de una corrida (lo que va al historial)
+// ============================================================
 struct RunResult {
     int        id = 0;
     std::string fecha;        // DD/MM/AAAA
@@ -100,9 +114,9 @@ struct RunResult {
 
     TestConfig  cfg;
     RunOutcome  outcome = RunOutcome::Unknown;
-    std::string notas;        // mensajes de limites/errores
+    std::string notas;        // mensajes de límites/errores
 
-    double wallSeconds = 0;   // duracion en tiempo real
+    double wallSeconds = 0;   // duración en tiempo real
     double cpuSeconds  = 0;   // CPU consumida por la carga (última muestra)
 
     long vsizePeakKB = 0;     // pico de memoria virtual
@@ -124,7 +138,7 @@ struct RunResult {
     long iterations   = 0;
 };
 
-// Utilidades numericas pequeñas
+// Utilidades numéricas pequeñas
 inline double pct_lost(long expected, long finalv) {
     if (expected <= 0) return 0.0;
     double lost = (double)(expected - finalv);

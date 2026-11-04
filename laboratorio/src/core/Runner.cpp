@@ -1,4 +1,7 @@
-// fork, supervision y muestreo de la prueba
+// ============================================================
+// Proyecto 2 - Laboratorio de concurrencia y memoria
+// Runner.cpp - fork, supervisión y muestreo de la prueba
+// ============================================================
 #include "../../include/core/Runner.hpp"
 #include "../../include/core/Load.hpp"
 #include "../../include/platform/ProcFs.hpp"
@@ -245,7 +248,7 @@ std::shared_ptr<RunState> Runner::start(const TestConfig& cfg) {
 
     if (pid == 0) {
         // ================= HIJO =================
-        // Nunca debe regresar a la TUI: aplica límites y corre la carga.
+        // Nunca debe regresar al padre (interfaz): aplica límites y corre la carga.
         LimitStatus st = Limits::apply(cfg);
         rs->cb->limitMemState.store(st.memAttempted
             ? (st.memApplied ? LIMIT_APPLIED : LIMIT_FAILED) : LIMIT_NOT_TRIED);

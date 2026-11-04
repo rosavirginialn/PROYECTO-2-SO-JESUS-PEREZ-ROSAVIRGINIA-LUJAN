@@ -1,9 +1,16 @@
-// Bloque de control en memoria compartida
+// ============================================================
+// Proyecto 2 - Laboratorio de concurrencia y memoria
+// ControlBlock.hpp - Bloque de control en memoria compartida
+//
+// Vive en un mmap(MAP_SHARED|MAP_ANONYMOUS) heredado por el hijo
+// tras fork(): es el canal padre<->hijo para las banderas de
+// control, el progreso de la carga y los mensajes de los límites.
+// ============================================================
 #pragma once
 #include <atomic>
 #include <cstdint>
 
-// Estado del intento de aplicar un iímite (lo escribe el hijo)
+// Estado del intento de aplicar un límite (lo escribe el hijo)
 enum : uint32_t {
     LIMIT_NOT_TRIED = 0,   // no se solicitó ese límite
     LIMIT_APPLIED   = 1,   // setrlimit OK y verificado con getrlimit

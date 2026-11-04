@@ -1,3 +1,17 @@
+// ============================================================
+// Proyecto 2 - Laboratorio de concurrencia y memoria
+// main.cpp - Punto de entrada
+//
+// Modos:
+//   ./laboratorio                -> GUI interactiva (Qt6)
+//   ./laboratorio --run ...      -> ejecución headless (para scripts/demo)
+//   ./laboratorio --selftest     -> verificación interna de los mecanismos
+//   ./laboratorio --help
+//
+// La GUI es la única interfaz del proyecto (el enunciado admite TUI o
+// GUI y elegimos GUI). Qt6 es obligatorio para compilar: CMake y el
+// Makefile lo comprueban y dan el mensaje de instalación si falta.
+// ============================================================
 #include <cstdio>
 #include <cstring>
 #include <string>
@@ -6,7 +20,9 @@
 #include "../include/core/History.hpp"
 #include "../include/core/Runner.hpp"
 #include "../include/platform/ProcFs.hpp"
-#include "../include/tui/App.hpp"
+
+#include <QApplication>
+#include "../include/gui/MainWindow.hpp"
 
 namespace {
 
@@ -18,9 +34,9 @@ void print_help() {
         "Laboratorio de concurrencia y memoria - Proyecto 2 Sistemas Operativos\n"
         "Integrantes: Jesus Perez - Rosa Virginia Lujan\n\n"
         "USO:\n"
-        "  ./laboratorio                    Interfaz TUI interactiva (modo principal)\n"
+        "  ./laboratorio                    Interfaz gráfica GUI (Qt6)\n"
         "  ./laboratorio --selftest         Verificacion interna de mecanismos\n"
-        "  ./laboratorio --run [opciones]   Ejecuta una prueba sin TUI (headless)\n\n"
+        "  ./laboratorio --run [opciones]   Ejecuta una prueba sin interfaz (headless)\n\n"
         "OPCIONES DE --run:\n"
         "  --type load|counter      Tipo de prueba (por defecto load)\n"
         "  --threads N              Hilos de trabajo (defecto 4)\n"
@@ -36,8 +52,8 @@ void print_help() {
         "  --iters N                Incrementos por hilo (solo --type counter)\n"
         "  --sample MS              Intervalo de muestreo (defecto 500)\n"
         "  --no-csv                 No agregar al historial resultados_lab.csv\n\n"
-        "Cada prueba (TUI o --run) se registra en resultados_lab.csv para\n"
-        "repetir configuraciones y comparar resultados.\n");
+        "Cada prueba (GUI o --run) se registra en resultados_lab.csv\n"
+        "para repetir configuraciones y comparar resultados.\n");
 }
 
 bool parse_args(int argc, char** argv, bool& doRun, bool& doSelftest) {
@@ -243,11 +259,12 @@ int main(int argc, char** argv) {
     if (doSelftest) return selftest();
     if (doRun)      return run_headless();
 
-    if (!isatty(STDIN_FILENO)) {
-        std::fprintf(stderr,
-            "laboratorio: no hay terminal interactivo.\n"
-            "Use './laboratorio --run ...' o './laboratorio --help'.\n");
-        return 2;
-    }
-    return Tui::run();
+    // ---------- interfaz gráfica (única interfaz interactiva) ----------
+    QApplication app(argc, argv);
+    QApplication::setApplicationName("laboratorio");
+    QApplication::setApplicationDisplayName(
+        "Laboratorio de concurrencia y memoria");
+    Gui::MainWindow w;
+    w.show();
+    return app.exec();
 }

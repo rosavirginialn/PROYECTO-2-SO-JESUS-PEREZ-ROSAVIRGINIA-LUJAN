@@ -1,7 +1,11 @@
-// Historial de resultados y exportacion CSV
+// ============================================================
+// Proyecto 2 - Laboratorio de concurrencia y memoria
+// History.hpp - Historial de resultados y exportación CSV
+//
 // Cada corrida se guarda en resultados_lab.csv (en el directorio
 // desde donde se ejecuta la app) para poder repetir pruebas con
 // distintas configuraciones y compararlas entre sesiones.
+// ============================================================
 #pragma once
 #include <string>
 #include <vector>

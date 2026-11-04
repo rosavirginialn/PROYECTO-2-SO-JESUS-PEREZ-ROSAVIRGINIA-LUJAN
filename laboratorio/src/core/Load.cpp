@@ -1,4 +1,6 @@
-// sImplementacion de la carga de prueba (lado del hijo)
+// ============================================================
+// Proyecto 2 - Laboratorio de concurrencia y memoria
+// Load.cpp - Implementación de la carga de prueba (lado del hijo)
 //
 // 1) Carga de memoria + CPU:
 //    - reserva con mmap() un bloque de "memoryMB" (memoria VIRTUAL),
@@ -11,6 +13,7 @@
 //    - N hilos incrementan el mismo dato "counterIters" veces,
 //    - con sincronización (atomic/mutex) o SIN ella para provocar
 //      y observar la condición de carrera (actualizaciones perdidas).
+// ============================================================
 #include "../../include/core/Load.hpp"
 
 #include <sys/mman.h>

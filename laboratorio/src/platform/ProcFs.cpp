@@ -1,8 +1,11 @@
-// Implementacion de la lectura de /proc
+// ============================================================
+// Proyecto 2 - Laboratorio de concurrencia y memoria
+// ProcFs.cpp - Implementación de la lectura de /proc
 //
 // Basado en el ProcFs.cpp del Proyecto 1 (procmon) de los mismos
 // autores, ampliado con: /proc/<pid>/status (VmSize, VmRSS,
 // VmSwap, cambios de contexto) y fallos de página de stat.
+// ============================================================
 #include "../../include/platform/ProcFs.hpp"
 
 #include <fstream>

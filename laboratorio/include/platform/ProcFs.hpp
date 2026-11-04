@@ -1,9 +1,12 @@
-// Lectura de /proc (extensión del ProcFs del Proyecto 1)
+// ============================================================
+// Proyecto 2 - Laboratorio de concurrencia y memoria
+// ProcFs.hpp - Lectura de /proc (extensión del ProcFs del Proyecto 1)
 //
 // Reutiliza la idea del procmon: parsear /proc/<pid>/stat,
 // /proc/<pid>/status y /proc/meminfo. Aquí se amplía con las
 // medidas que pide el enunciado: memoria virtual, residente,
 // SWAP, fallos de página y cambios de contexto.
+// ============================================================
 #pragma once
 #include <string>
 #include <vector>

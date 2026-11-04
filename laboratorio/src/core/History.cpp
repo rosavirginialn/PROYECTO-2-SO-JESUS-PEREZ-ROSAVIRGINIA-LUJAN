@@ -1,4 +1,7 @@
-// Implementación del historial CSV
+// ============================================================
+// Proyecto 2 - Laboratorio de concurrencia y memoria
+// History.cpp - Implementación del historial CSV
+// ============================================================
 #include "../../include/core/History.hpp"
 
 #include <fstream>

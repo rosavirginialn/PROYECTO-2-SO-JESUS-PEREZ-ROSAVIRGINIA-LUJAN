@@ -1,4 +1,7 @@
-// La carga de prueba que corre en el proceso hijo
+// ============================================================
+// Proyecto 2 - Laboratorio de concurrencia y memoria
+// Load.hpp - La carga de prueba que corre en el proceso hijo
+// ============================================================
 #pragma once
 #include "../common/Types.hpp"
 #include "../core/ControlBlock.hpp"

@@ -1,5 +1,7 @@
-// Aplicación de límites de memoria y CPU en Linux
-
+// ============================================================
+// Proyecto 2 - Laboratorio de concurrencia y memoria
+// Limits.hpp - Aplicación de límites de memoria y CPU en Linux
+//
 // Se aplican en el PROCESO HIJO (donde corre la carga) mediante
 // setrlimit():
 //   * RLIMIT_AS : dirección virtual máxima que el proceso puede
@@ -9,6 +11,7 @@
 //                 la cantidad de núcleos del equipo.
 // El enunciado exige: si un límite no puede aplicarse, la app debe
 // indicarlo claramente y NO presentar la prueba como limitada.
+// ============================================================
 #pragma once
 #include "../common/Types.hpp"
 
@@ -30,7 +33,7 @@ namespace Limits {
 // Debe invocarse en el HIJO, antes de lanzar la carga.
 LimitStatus apply(const TestConfig& cfg);
 
-// Texto legible para la TUI / el historial
+// Texto legible para la interfaz / el historial
 std::string describe(const LimitStatus& st);
 
-} 
+} // namespace Limits

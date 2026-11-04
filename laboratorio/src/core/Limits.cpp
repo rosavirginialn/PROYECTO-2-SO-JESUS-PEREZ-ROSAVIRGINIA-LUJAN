@@ -1,4 +1,7 @@
-// Implementación con setrlimit/getrlimit
+// ============================================================
+// Proyecto 2 - Laboratorio de concurrencia y memoria
+// Limits.cpp - Implementación con setrlimit/getrlimit
+// ============================================================
 #include "../../include/core/Limits.hpp"
 
 #include <sys/resource.h>
